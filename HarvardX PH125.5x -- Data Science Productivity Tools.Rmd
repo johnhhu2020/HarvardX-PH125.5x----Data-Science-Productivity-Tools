@@ -1579,63 +1579,29 @@ So this includes using the home directory.  [][You do not want to use the ~ in y
 ![](C:/Users/qp/Pictures/Let's call this file download-data.R..png)
 ![](C:/Users/qp/Pictures/The content of this file will be this..png)
 ![](C:/Users/qp/Pictures/Let's call this file download-data.R. The content of this file will be this..png)
-All right, now let's write some scripts to download a file into the data directory.  Let's call this file download-data.R. The content of this file will be this.  Note that we're using the relative path, data/murders.csv for the name of the file we're creating.  You can run this code in R and you'll see that a file is added to the data directory.  Now we're ready to write a script to read this data and prepare a table that we can use for further analysis.  
+
+All right, now let's write some scripts to download a file into the data directory.  Let's call this file [][download-data.R]. The content of this file will be this.  Note that we're using the relative path, data/murders.csv for the name of the file we're creating.  You can run this code in R and you'll see that a file is added to the data directory.  Now we're ready to write a script to read this data and prepare a table that we can use for further analysis.  
 ```{r}
 url <- "https://raw.githubusercontent.com/rafalab/dslabs/master/inst/extdata/murders.csv"
 dest_file <- "data/murders.csv"
 download.file(url, destfile = dest_file,  method = "libcurl")
-# https://stackoverflow.com/questions/71271210/r-markdown-cannot-open-url-when-using-download-file
 ```
+![](C:/Users/qp/Pictures/the new file wrangle-data.R. The content of this file will be this..png)
+![](C:/Users/qp/Pictures/using this a script to read this data and prepare a table for later use.png)
+![](C:/Users/qp/Pictures/The save command in R saves objects into what is called an rda file.png)
+Call the new file wrangle-data.R. The content of this file will be this.  Again know that we're using relative paths exclusively.  In this file we introduce a command we have not yet seen.  It's the command "save."  The "save" command in R saves objects into what is called an "rda file."  RDA stands for R Data.  [][We recommend using the .rda suffix on files saving R objects].  You will also see others using the suffix .RData.  This is fine.  We prefer .rda.  
+![](C:/Users/qp/Pictures/if you run this code, the process data object will be saved in rda directory.png)
+OK, now if you run this code, the process data object will be saved in a file in the rda directory.  Although not the case here, this approach is often practical because generating the data object we use for final analysis and plots can be complex and time consuming.  So we don't have to run it every time we start the project.  So we run this process one time and save the file.
+But we still want to be able to generate the entire analysis from the raw data.  So we include that script as well.  
+![](C:/Users/qp/Pictures/We're going to call this one analysis.R..png)
+![](C:/Users/qp/Pictures/analysis.R file content should be something like this.png)
+Now we're ready to write the analysis file.  We're going to call this one analysis.R. The content should be something like this.  If you run this analysis, you'll see that it generates a file.  Now suppose we want to save the generated file for use in a report or a presentation.  We can do this using the command, []["ggsave."]  
+![](C:/Users/qp/Pictures/the command ggsave to save the plot.png)
+![](C:/Users/qp/Pictures/you type mkdir figs and now you can add the line ggsave.png)
+This is part of the ggplot package.  But where do we put this graph?  We should be systematically organized so we will save plots to a directory called, "figs."  So we have to create this directory.  You can do this by opening a terminal.  You'll be in your working directory.  You type [][mkdir figs] and now you can add the line [][ggsave("figs/barplot.png")] to our script and it will save the file to that directory.  If you run the script now, a png file will be saved into this figs directory.  
 
-
-Call the new file wrangle-data.R. The content of this file will be this.
-Again know that we're using relative paths exclusively.
-In this file we introduce a command we have not yet seen.
-It's the command "save."
-The "save" command in R saves objects into what is called an "rda file."
-RDA stands for R Data.
-We recommend using the .rda suffix on files saving R objects.
-You will also see others using the suffix .RData.
-This is fine.
-We prefer .rda.
-OK, now if you run this code, the process data object
-will be saved in a file in the rda directory.
-Although not the case here, this approach
-is often practical because generating the data object
-we use for final analysis and plots can be complex and time consuming.
-So we don't have to run it every time we start the project.
-So we run this process one time and save the file.
-But we still want to be able to generate the entire analysis from the raw data.
-So we include that script as well.
-Now we're ready to write the analysis file.
-We're going to call this one analysis.R. The content
-should be something like this.
-If you run this analysis, you'll see that it generates a file.
-Now suppose we want to save the generated file for use
-in a report or a presentation.
-We can do this using the command, "ggsave."
-This is part of the ggplot package.
-But where do we put this graph?
-We should be systematically organized so we will save plots
-to a directory called, "figs."
-So we have to create this directory.
-You can do this by opening a terminal.
-You'll be in your working directory.
-You type mkdir figs and now you can add the line ggsave("figs/barplot.png")
-to our script and it will save the file to that directory.
-If you run the script now, a png file will be saved into this figs directory.
-Now if we want to copy that file to some other directory
-where we're developing a presentation, we
-can avoid using the mouse by using the copy command.
-You now have a self-contained analysis in one directory.
-One final recommendation is to create a README.txt file
-describing what each of these files does for the benefit of others reading
-your code, including your future self.
-This would not be a script, but just some notes.
-Note that one of the options for opening a new file in RStudio, is a text file.
-You can save something like this to a text
-file describing what each file does and what it produces.
-End of transcript. Skip to the start.
+Now if we want to copy that file to some other directory where we're developing a presentation, we can avoid using the mouse by using the copy command.  You now have a self-contained analysis in one directory.  **One final recommendation is to create a README.txt file describing what each of these files does for the benefit of others reading your code, including your future self**.  This would not be a script, but just some notes.  Note that one of the options for opening a new file in RStudio, is a text file.  You can save something like this to a text file describing what each file does and what it produces.  
+![](C:/Users/qp/Pictures/You can save something like this to a text file describing what each file does and what to produce.png)
 
 
 
@@ -1685,7 +1651,251 @@ ggsave("figs/barplot.png")    # save a plot generated by ggplot2 to a dir called
 
 
 
-# 
+# Ungraded Practice Questions: Introduction to Unix
+
+##  Section 2.2: Q1
+0 points possible (ungraded)
+Which code will take you to a new directory without moving any files?
+mv
+cd
+pwd
+ls
+correct
+You have used 1 of 2 attempts Some
+
+
+
+##  Section 2.2: Q2
+0 points possible (ungraded)
+
+Assume you are in a directory called videos, which is a subdirectory of the home directory.
+What is the relative path to the directory photos, which is also a subdirectory of the home directory?
+../photos
+~photos
+..rafa/photos
+./photos
+correct
+
+Explanation
+
+To return to the parent directory, in this case the home directory, we use .., and from there we can use /photos to move to the photos subdirectory.
+You have used 2 of 2 attempts Some
+
+
+
+
+
+
+
+
+
+
+
+
+## Course  /  Section 2: Basic Unix  /  Comprehension Check and Discussion: Basic Unix
+
+# Comprehension Check Part 1: Basic Unix
+
+Comprehension Check due Aug 29, 2022 23:27 AWST
+
+## Question 1
+1/1 point (graded)
+It is important to know which directory, or folder, you’re in when you are working from the command line in Unix. Which line of code will tell you the current working directory?
+cd
+pwd
+rm
+echo
+correct
+Answer
+Correct: Correct! This command stands for “print working directory” and it will tell you the full path to the directory you’re currently in.
+You have used 1 of 2 attempts Some
+
+
+
+##  Question 2
+1/1 point (graded)
+You can’t use your computer’s mouse in a terminal. How can you see a line of code that you executed previously?
+Type pwd
+Type echo
+Use the up arrow
+Press the enter key
+correct
+Answer
+Correct: Correct! You can use the up arrow to see previously executed lines of code and repeat them.
+You have used 1 of 2 attempts Some
+
+
+
+##  Question 3
+1/1 point (graded)
+
+Assume a student types pwd and gets the following output printed to the screen: /Users/student/Documents.
+
+Then, the student enters the following commands in sequence:
+
+      mkdir projects
+cd projects
+    
+
+What will be printed to the screen if the student types pwd after executing the two lines of code shown above?
+/Users/student/Documents
+/Users/student/Documents/projects
+/Users/student
+cd: projects: No such file or directory
+correct
+Answer
+Correct: Correct! The student created a new directory called “projects” and then moved into that directory using the “change directory” (cd) command.
+You have used 1 of 2 attempts Some
+
+
+
+##  Question 4
+1/1 point (graded)
+Which of the following statements does NOT correctly describe the utility of a command in Unix?
+The
+key exits the viewer when you use less to view a file.
+The command ls lists files in the current directory.
+The command mkdir makes a new directory and moves into it.
+The mv command can move a file and change the name of a file.
+correct
+Answer
+Correct: Correct! The mkdir command makes a new directory but does not automatically move into it. You must use the cd command to change into the new directory.
+You have used 1 of 2 attempts Some
+
+
+
+##  Question 5
+1/1 point (graded)
+
+The following is the full path to a homework assignment file called "assignment.txt": /Users/student/Documents/projects/homeworks/assignment.txt.
+Which line of code will allow you to move the assignment.txt file from the “homeworks” directory into the parent directory “projects”?
+mv assignment.txt
+mv assignment.txt .
+mv assignment.txt ..
+mv assignment.txt /projects
+correct
+Answer
+Correct: Double dots .. mean “up a directory”, so mv assignment.txt .. moves the assignment text file into the NEXT highest directory, projects.
+You have used 1 of 2 attempts Some
+
+
+
+##  Question 6
+1/1 point (graded)
+
+You want to move a file called assignment.txt into your projects directory. However, there is already a file called "assignment.txt" in the projects directory.
+What happens when you execute the “move” (mv) command to move the file into the new directory?
+The moved "assignment.txt" file replaces the old "assignment.txt" file that was in the "projects" directory with no warning.
+An error message warns you that you are about to overwrite an existing file and asks if you want to proceed.
+An error message tells you that a file already exists with that name and asks you to rename the new file.
+The moved “assignment.txt” file is automatically renamed “assignment.txt (copy)” after it is moved into the “projects” directory.
+correct
+Answer
+Correct: Correct! Be careful when moving files around using the command line. Unix does not warn you before you overwrite a file.
+You have used 1 of 2 attempts Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+Correct (1/1 point) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Comprehension Check Part 2 (Verified Learners Only)
+
+Graded assignments are locked
+Upgrade to gain access to locked features like this one and get the most out of your course.
+Example Certificate
+When you upgrade, you:
+
+Earn a verified certificate of completion to showcase on your resumé
+Unlock your access to all course activities, including graded assignments
+Full access to course content and materials, even after the course ends
+Support our mission at edX
+
+
+Comprehension Check due Aug 29, 2022 23:27 AWST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Questions about Section 2: Unix?
+
+
+
+Ask your questions or make your comments about Unix Basics here! Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+    Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+    Posting snippets of code is okay, but posting full code solutions is not.
+    If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+Filter:
+Sort:
+
+    discussion
+    Getting more interested. Thanks EDx!
+    Getting more interested. Thanks EDx!
+    1 comments
+    discussion
+    Exciting
+    Another exciting course. (",)
+
+
+
+
+
+
+
+
+
+
+
+
+## Course  /  Section 3: Reproducible Reports  /  Section 3 Overview
+
+# Section 3 Overview
+
+The Reproducible Reports section guides you through how to create data science reports using R Markdown and the knitr package.
+
+There is a graded comprehension check at the end of the section.
+
+We will use this example GitHub repository throughout.
+https://github.com/rairizarry/murders
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
