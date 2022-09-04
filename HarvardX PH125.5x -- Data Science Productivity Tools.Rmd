@@ -1587,11 +1587,11 @@ dest_file <- "data/murders.csv"
 download.file(url, destfile = dest_file,  method = "libcurl")
 ```
 ![](C:/Users/qp/Pictures/the new file wrangle-data.R. The content of this file will be this..png)
-![](C:/Users/qp/Pictures/using this a script to read this data and prepare a table for later use.png)
+![think why not group_by()??](C:/Users/qp/Pictures/using this a script to read this data and prepare a table for later use.png)
 ![](C:/Users/qp/Pictures/The save command in R saves objects into what is called an rda file.png)
-Call the new file wrangle-data.R. The content of this file will be this.  Again know that we're using relative paths exclusively.  In this file we introduce a command we have not yet seen.  It's the command "save."  The "save" command in R saves objects into what is called an "rda file."  RDA stands for R Data.  [][We recommend using the .rda suffix on files saving R objects].  You will also see others using the suffix .RData.  This is fine.  We prefer .rda.  
+Call the new file wrangle-data.R. The content of this file will be this.  Again know that we're using relative paths exclusively.  In this file we introduce a command we have not yet seen.  It's the command "save."  *The "save" command in R saves objects into what is called an "rda file."*  RDA stands for R Data.  [][We recommend using the .rda suffix on files saving R objects].  You will also see others using the suffix .RData.  This is fine.  We prefer .rda.  
 ![](C:/Users/qp/Pictures/if you run this code, the process data object will be saved in rda directory.png)
-OK, now if you run this code, the process data object will be saved in a file in the rda directory.  Although not the case here, this approach is often practical because generating the data object we use for final analysis and plots can be complex and time consuming.  So we don't have to run it every time we start the project.  So we run this process one time and save the file.
+OK, now if you run this code, the process data object will be saved in a file in the rda directory.  Although not the case here, *this approach is often practical because generating the data object we use for final analysis and plots can be complex and time consuming*.  So we don't have to run it every time we start the project.  So we run this process one time and save the file.
 But we still want to be able to generate the entire analysis from the raw data.  So we include that script as well.  
 ![](C:/Users/qp/Pictures/We're going to call this one analysis.R..png)
 ![](C:/Users/qp/Pictures/analysis.R file content should be something like this.png)
@@ -1891,11 +1891,350 @@ https://github.com/rairizarry/murders
 
 
 
+## Course  /  Section 3: Reproducible Reports  /  3.1 Reproducible Reports
+
+
+# Reproducible Reports with R Markdown
+
+
+The final product of a data analysis project is often a report.  Many scientific publications can be thought of as a final report of a data analysis.  The same is true for a news article based on data, an analysis report for your company, or lecture notes for a class on how to analyze data.  The reports are often on paper or they're a PDF that include textual descriptions of the findings along with some figures and tables resulting from the analysis.  
+
+Now, imagine that after you've finished the analysis and the report, you're told that you were given the wrong dataset, and they send you a new one and you're asked to run the same analysis but with this new dataset.  Or, what if you realized that a mistake was made and you need to re-examine the code, fix the error, and rerun the analysis?  Or imagine that someone you're training wants to see the code you used for the report and be able to reproduce the results to learn about the approach.  Situations like the ones just described are actually quite common for a data scientist.  
+
+Here, we describe how to generate reproducible reports with [][RMarkdown] and [][knitr] in a way that will greatly help with situations such as the ones we described.  The main feature is that code and textual descriptions can be combined into the same document.  And the figures, and tables produced by the code are automatically added to the document.  
+![](C:/Users/qp/Pictures/code and textual descriptions can be combined into the same document.png)
+![](C:/Users/qp/Pictures/tables produced by the code are automatically added to the document.png)
+
+
+
+[][Textbook Link]
+
+This video corresponds to the textbook section on Reproducible Reports with R Markdown.
+https://rafalab.github.io/dsbook/reproducible-projects-with-rstudio-and-r-markdown.html
+
+
+[][Key points]
+
+    The final output is usually a report, textual descriptions and figures, and tables.
+    The aim is to generate a reproducible report in R markdown and knitr.
+    Features of Rmarkdown: code and text can be combined to the same document and figures and tables are automatically added to the file.
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+# R Markdown
+
+R Markdown is a format for what is called [][literate programming documents].  It is based on Markdown, a markup language that is widely used to generate HTML pages.  You can learn more about Markdown at the website provided here.  Literate programming weaves instructions, documentation, and detailed comments in between machine-executable code, producing a document that describes the program that is best for human understanding.  
+![](C:/Users/qp/Pictures/knitr is what compiles the markdown document.png)
+Unlike a word processor, such as Microsoft Word, where what you see is what you get, with R Markdown, you need to [][compile] the document into the final report.  knitR is what compilers R Markdown documents.  The R Markdown document looks different than the final product.  This seems like a disadvantage at first, but it is not at all.  Because for example, instead of producing plots and inserting them one by one into the word processing document, the plots are automatically added.  
+
+![](C:/Users/qp/Pictures/creating rmarkdown file with short cut.png)
+In RStudio, you can start an R Markdown document by clicking on File, then New File, then R Markdown, like this.  You will then be asked to enter a title and an author for your document.  We're going to prepare a report on gun murders, so we will give the appropriate name.  You can also decide what format you would like to file a report to be--HTML, PDF, or Microsoft Word.  We can actually easily change this later, but here we select HTML, as it is the preferred format for debugging purposes.  
+![](C:/Users/qp/Pictures/choose html for the easy debugging purpose.png)
+This will generate a template file like this.  As a convention, we use the [][.Rmd] suffix for these files.  Once you gain experience with R Markdown, you will be able to do this without the template and can simply start from a blank template.  But in the template here, you'll see several things, and we're going to learn something from them.  At the top, you see a header that looks like this.  The things between the dash, dash, dash is the header.  
+![](C:/Users/qp/Pictures/r markdown header part.png)
+We actually don't need a header, but it is often useful.  You can define many other things in the header than what is included in the template, which we don't discuss here, but much information about this is available online.  The one parameter that we will highlight is output.  By changing this to, for example, [][PDF_document], we can control the output that is produced when we compile so that it makes a PDF instead of an HTML document.  
+![](C:/Users/qp/Pictures/By changing this to, for example, PDF_document, we can control the outpu.png)
+Another important thing to notice is that in various places of the document, we see something that looks like this.  These are the R chunks.  Here's where we write the R code.  To add your own R chunks, you're going to have to type those characters you saw.  Back quote, back quote, back quote-- it's kind of complicated.  But you can use a keybinding to do this.  
+![](C:/Users/qp/Pictures/we can use key bindings to create these r code chunks.png)
+On the Mac, it's *Command-Option-I*, and on Windows, is *Control-Alt-I*.  This will *automatically create an empty code chunk*.  When you compile the document, the R code inside these chunks--in the case of the example we're seeing here, it's summary pressure-- will be evaluated and the result included in that position in the final document.  This applies to plots as well.  The plot will be placed in the position where the R chunk is.  We can write something like this to make a plot.  
+
+Now, by default, the code will show up as well.  To avoid having the code show up, if you want to give a presentation to someone that doesn't really understand code, you can avoid showing the code by adding the argument echo equals false.  Here's an example.  This would make a plot, but won't show the code.  *{r, echo=F}*
+![](C:/Users/qp/Pictures/by adding the argument echo equals false you can avoid having code shows up in the report.png)
+We recommend getting into the habit of adding a label to the R code chunks.  This will be very helpful when debugging, among other advantages.  You can do this by writing a descriptive word like this.  *{r pressure-summary}*
+![](C:/Users/qp/Pictures/You can do this by writing a descriptive word like this.png)
+
+
+
+[][Textbook link]
+
+This video corresponds to the textbook section on R Markdown.
+https://rafalab.github.io/dsbook/reproducible-projects-with-rstudio-and-r-markdown.html#r-markdown
+
+
+[][Useful links]
+
+You can learn more about R Markdown at markdowntutorial.com.
+
+RStudio also has a resource on R Markdown to check out.
+https://rmarkdown.rstudio.com/lesson-1.html
+
+Another potentially useful resource is the online version of R Markdown: The Definitive Guide by Xie, Allaire, and Grolemund.
+https://bookdown.org/yihui/rmarkdown/
+
+The code for the sample report is available as well.
+https://raw.githubusercontent.com/rairizarry/murders/master/report.Rmd
+
+
+[][Key points]
+
+    R Markdown is a format for literate programming documents. Literate programming weaves instructions, documentation and detailed comments in between machine executable code, producing a document that describes the program that is best for human understanding.
+
+    Start an R markdown document by clicking on File > New File > the R Markdown
+
+    The output could be HTML, PDF, or Microsoft Word, which can be changed in the header output, e.g. pdf_document / html_document/p>
+
+Code
+
+# a sample code chunk
+```{r}
+summary(pressure)
+```
+
+# When echo=FALSE, code will be hided in output file
+```{r echo=FALSE}
+summary(pressure)
+```
+
+# use a descriptive name for each chunk for debugging purpose
+```{r pressure-summary}
+summary(pressure)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# knitr
+
+To convert an R Markdown file into a document, we need to use the knitr package.  The specific function used to compile is the knit function.  Now, RStudio provides a button that actually makes it easier to compile the document.  We're going to show you an example.  We have already created an R Markdown file with the gun murders report.  If you want access to this file, you can follow this link.  Now here, we can see the file in RStudio.  You can simply click on the knit button, and if it's the first time you'll using it, you might get a pop up window asking you to install packages needed to run knit, but once that's all installed, then you will automatically knit your document, and you'll compile your R Markdown file, and a resulting document will pop up.  
+![](C:/Users/qp/Pictures/example report on gun murders report with html output.png)
+Here's what it looks like.  Note that this produces an HTML document.  You can see it in your working directory.  To see it, open a terminal, and list the files.  You can open the file in a browser and use it to present your analysis.  But you can also produce a PDF or a Microsoft document.  *You can do this by changing the output variable in the header*.  
+
+So instead of output HTML document, you can write PDF document or Word document.  *We can also produce documents that render on GitHub using the output GitHub underscore document*.  Here's an example.  This will produce a markdown file with the suffix [][.md] that renders on GitHub.  Because we have uploaded this file to GitHub, you can actually go to this website, click on the .md file, and you will see a very nice report that looks like this.  
+![](C:/Users/qp/Pictures/the github md report will looks like this.png)
+[][This is very useful to show to potential employers].  Now there's a lot more to learn about R Markdown.  **We highly recommend you learn as you gain more experience by writing reports in R**. There many free resources on the internet to learn more about R Markdown and knitr.  Here are some examples.  
+
+
+
+[][Useful Links]
+
+This video corresponds to the textbook section on knitr basics. 
+https://rafalab.github.io/dsbook/reproducible-projects-with-rstudio-and-r-markdown.html#knitr
+
+The code for the example report is available.
+https://raw.githubusercontent.com/rairizarry/murders/master/report.Rmd
+
+It also may be useful to explore the RMarkdown website and the knitr website.
+https://rmarkdown.rstudio.com/
+https://yihui.name/knitr/
+
+
+[][Key points]
+
+    The knitr package is used to compile R markdown documents.
+    The first time you click the "knit" button on the editor pane a pop-up window will prompt you to install packages, but after that is completed, the button will automatically knit your document.
+    github_document gives a .md file, which will give the best presentation on GitHub
+
+Code
+
+output: html_document 
+output: pdf_document 
+output: word_document
+output: github_document
+
+
+
+
+
+
+
+
+
+
+## Course  /  Section 3: Reproducible Reports  /  Comprehension Check and Discussion: Reproducible Reports
+
+
+# Comprehension Check: Reproducible Reports
+
+Graded assignments are locked
+Upgrade to gain access to locked features like this one and get the most out of your course.
+Example Certificate
+When you upgrade, you:
+
+Earn a verified certificate of completion to showcase on your resumé
+Unlock your access to all course activities, including graded assignments
+Full access to course content and materials, even after the course ends
+Support our mission at edX
+
+
+
+Comprehension Check due Sep 8, 2022 07:27 AWST
+##  Question 1
+1/1 point (graded)
+Why might you want to create a report using R Markdown?
+R Markdown has better spell-checking tools than other word processors.
+R Markdown allows you to automatically add figures to the final document.
+R Markdown final reports have smaller file sizes than Word documents.
+R Markdown documents look identical to the final report.
+correct
+Answer
+Correct: R Markdown automatically adds figures to the final document, along with any text describing your project.
+You have used 1 of 2 attempts Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+Correct (1/1 point)  Question 2
+1/1 point (graded)
+
+You have a vector of student heights called heights. You want to generate a histogram of these heights in a final report, but you don’t want the code to show up in the final report. You want to name the R chunk “histogram” so that you can easily find the chunk later.
+Which of the following R chunks does everything you want it to do?
+
+```{r, histogram, message=FALSE}
+hist(heights)
+```
+        
+
+```{r histogram, warning=FALSE}
+hist(heights)
+```
+        
+
+```{r, echo=FALSE}
+hist(heights)
+```
+        
+
+```{r histogram, echo=FALSE}
+hist(heights)
+```
+        
+
+correct
+Answer
+[][Correct: This chunk is named “histogram” and plots a histogram of the values in the heights vector]. The argument echo=FALSE prevents the code from appearing in the final document, but the figure will be included.
+You have used 2 of 2 attempts Some
+
+
+
+##  Question 3
+1/1 point (graded)
+
+Below is a section of R Markdown code that generates a report.
+
+---
+title: "Final Grade Distribution"
+output: pdf_document
+---
+```{r, echo=FALSE}
+load(file="my_data.Rmd")
+summary(grades)
+```
+    
+
+Select the statement that describes the file report generated by the R markdown code above.
+A PDF document called “Final Grade Distribution” that prints a summary of the “grades” object. The code to load the file and produce the summary will not be included in the final report.
+A PDF document called “Final Grade Distribution” that prints a summary of the “grades” object. The code to load the file and produce the summary will be included in the final report.
+An HTML document called “Final Grade Distribution” that prints a summary of the “grades” object. The code to load the file and produce the summary will not be included in the final report.
+A PDF document called “Final Grade Distribution” that is empty because the argument echo=FALSE was used.
+correct
+Answer
+Correct: The title and output specify the name and type of report to be generated. The summary command produces a summary of the object and echo=FALSE means that the code will not appear in the final report, only the output of the summary.
+You have used 1 of 2 attempts Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+Correct (1/1 point) 
+
+
+
+##  Question 4
+1/1 point (graded)
+
+The user specifies the output file format of the final report when using R Markdown.
+Which of the following file types is NOT an option for the final output?
+.rmd
+.pdf
+.doc
+.html
+correct
+Answer
+Correct: The .Rmd files are the R Markdown files themselves, not the final reports.
+You have used 1 of 2 attempts Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+Correct (1/1 point) 
+
+
+
+
+
+
+
+
+
+
+
+# Questions about Reproducible Reports?
+
+
+
+Ask your questions or make your comments about Reproducible Reports here! Remember to search the discussion board before posting to see if someone else has asked the same thing before asking a new question! You're also encouraged to answer each other's questions to help further your own learning.
+
+Some reminders:
+
+    Please be specific in the title and body of your post regarding which question you're asking about to facilitate answering your question.
+    Posting snippets of code is okay, but posting full code solutions is not.
+    If you do post snippets of code, please format it as code for readability. If you're not sure how to do this, there are instructions in a pinned post in the "general" discussion forum.
+
+Filter:
+Sort:
+
+    discussion
+    Very informative !
+    Very informative !
+    1 comments
+    discussion
+    Wonderful
+    I'm very happy to take part in this course !
+    1 comments
+    discussion
+    Awesome!
+    Very useful topic as it will facilitate changes in the reports.
+    1 comments
+    discussion
+    (.")
+    Very good comprehension test.
+    1 
+    
+    
+
+
+
+
+
+
+
+
+
+## Course  /  Section 4: Git and GitHub  /  Section 4 Overview
+
+
+# Section 4 Overview
+
+In this section on Git and GitHub, you will learn to clone and create version-controlled GitHub repositories using the command line. 
+
+There is a graded comprehension check at the end of the section.
+
+If you get stuck, we encourage you to search the discussion boards for fixes or ask us for help!
+
+
+
+
+
+
+
+
+## Course  /  Section 4: Git and GitHub  /  4.1 Git and GitHub
 
 
 
